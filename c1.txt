@@ -1,0 +1,4 @@
+main = do
+    withFile "c1.txt" ReadMode (\handle -> do
+        contents <- hGetContents handle
+        putStr contents)    
