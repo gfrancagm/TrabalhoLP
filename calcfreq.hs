@@ -11,14 +11,29 @@ getListFromFile path = do
 
     return list
 
+removeSeparators :: String -> String -> String
+removeSeparators separators word = [character | character <- word, character `notElem` separators]
+
+countWord:: String  -> [String] -> Int
+countWord word program = length (filter (== word) program) 
+
+totalQuantity:: [String] -> Int
+totalQuantity program = length(program)
+
+makeTupleWordQuantity :: [String] -> String -> (String, Int)
+makeTupleWordQuantity program word = (word, quantity)
+    where
+        quantity = countWord word program
+
+
+
 main = do
-    separators <- getListFromFile "sep.txt"
+    separators <- readFile "sep.txt"
     reserved <- getListFromFile "res.txt"
     program1 <- getListFromFile "c1.txt"
-    program2 <- getListFromFile "c2.txt"
+    program2 <- getListFromFile "c2.txt"    
 
-    -- TODO : Função que vai pegar todas as Strings das listas de programas e retirar os separadores delas
-    -- TODO : Função para calcular a quantidade de palavras em cada programa
-    -- TODO : Função para calcular a quantidade de cada palavra de cada programa
+
+    let list_tuples = map (makeTupleWordQuantity program1) program1 
 
     return ()
