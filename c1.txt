@@ -1,1 +1,0 @@
-getTupleListFromProgram program = nub(map(makeTupleWordQuantity program)program)
