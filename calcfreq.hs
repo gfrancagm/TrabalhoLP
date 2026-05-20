@@ -2,38 +2,46 @@
 -- que não esteja incluída em sep.
 -- Palavras contidas em res devem ter o dobro de peso que as demais palavras.
 import System.IO
+import Data.List (sortBy, nub)
 
-getListFromFile :: FilePath -> IO [String]
-getListFromFile path = do
-    handle <- openFile path ReadMode
-    contents <- hGetContents handle
-    let list = words contents
+replaceSep :: String -> Char -> String
+replaceSep sep x
+    | x `elem` sep = " "
+    | otherwise = [x] 
 
-    return list
+programMinusSep :: String -> String -> String
+programMinusSep program sep = concatMap (replaceSep sep) program
 
-removeSeparators :: String -> String -> String
-removeSeparators separators word = [character | character <- word, character `notElem` separators]
+countWord list word = length (filter (== word) list)
 
-countWord:: String  -> [String] -> Int
-countWord word program = length (filter (== word) program) 
+sortByQtt (a1, b1) (a2, b2) 
+    | b1 > b2 = LT
+    | b1 < b2 = GT
+    | b1 == b2 = compare a1 a2
 
-totalQuantity:: [String] -> Int
-totalQuantity program = length(program)
-
-makeTupleWordQuantity :: [String] -> String -> (String, Int)
-makeTupleWordQuantity program word = (word, quantity)
-    where
-        quantity = countWord word program
-
-
+addWeight res (a, b) 
+    | a `elem` res = (a, 2*b)
+    | otherwise = (a, b)
 
 main = do
-    separators <- readFile "sep.txt"
-    reserved <- getListFromFile "res.txt"
-    program1 <- getListFromFile "c1.txt"
-    program2 <- getListFromFile "c2.txt"    
+    sep <- readFile "sep.txt"
+    res <- readFile "res.txt"
+    c1 <- readFile "c1.txt"
+    c2 <- readFile "c2.txt"    
 
+    let sepList = sep
+    let resList = words res
 
-    let list_tuples = map (makeTupleWordQuantity program1) program1 
+    let program1 = words (programMinusSep c1 sepList)
+
+    let quantityWords = map (countWord program1) program1
+
+    let tuplesWordQtt = zip program1 quantityWords
+
+    let sortedTuples = nub (sortBy sortByQtt tuplesWordQtt)
+
+    let weightedTuples = map (addWeight resList) sortedTuples
+
+    print weightedTuples
 
     return ()
