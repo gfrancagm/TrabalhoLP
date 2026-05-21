@@ -1,5 +1,7 @@
+module Main where
+
 import System.IO
-import util.LimpaCodigo
+import Util.Util
 
 main :: IO ()
 main = do
@@ -12,7 +14,5 @@ main = do
     let res = words conteudoRes
     let sep = words conteudoSep
 
-    let c1 = LimpaCodigo (words conteudoC1) sep
-    let c2 = LimpaCodigo (words conteudoC2) sep
-
-    
+    let c1 = limpaCodigo (words conteudoC1) sep
+    let c2 = limpaCodigo (words conteudoC2) sep
