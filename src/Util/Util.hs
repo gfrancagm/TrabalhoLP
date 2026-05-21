@@ -1,5 +1,36 @@
 module Util.Util where
 
+import System.IO
+import Data.List (sortBy, nub)
+
+retiraSeps :: String -> Char -> String
+retiraSeps sep x
+    | x `elem` sep = " "
+    | otherwise = [x] 
+
+contaPalavra :: Eq a => [a] -> a -> Int
+contaPalavra lista palavra = length (filter (== palavra) lista)
+
+sorteiaPorQtd :: (Ord a1, Ord a2) => (a2, a1) -> (a2, a1) -> Ordering
+sorteiaPorQtd (a1, b1) (a2, b2) 
+    | b1 > b2 = LT
+    | b1 < b2 = GT
+    | b1 == b2 = compare a1 a2
+
+adicionaPesos :: (Foldable t, Eq a, Num b) => t a -> (a, b) -> (a, b)
+adicionaPesos res (a, b) 
+    | a `elem` res = (a, 2*b)
+    | otherwise = (a, b)
+
+fazTuplas :: (Ord a, Foldable t) => [a] -> t a -> [(a, Int)]
+fazTuplas c res  = 
+    let qtdPalavras = map (contaPalavra c) c 
+        listaTuplas = zip c qtdPalavras
+        tuplasSemDuplicados = nub (sortBy sorteiaPorQtd listaTuplas) 
+        tuplascPeso = map (adicionaPesos res) tuplasSemDuplicados 
+
+    in tuplascPeso   
+
 limpaCodigo :: [String] -> [String] -> [String]
 limpaCodigo lista sep = filter (\x -> not (x `elem` sep)) lista
 

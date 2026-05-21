@@ -12,7 +12,10 @@ main = do
     conteudoC2 <- readFile "../files/c2.txt"
 
     let res = words conteudoRes
-    let sep = words conteudoSep
+    let sep = conteudoSep
 
-    let c1 = limpaCodigo (words conteudoC1) sep
-    let c2 = limpaCodigo (words conteudoC2) sep
+    let c1 = words (concatMap (retiraSeps sep) conteudoC1)
+    let c2 = words (concatMap (retiraSeps sep) conteudoC2)
+
+    let c1Tuplas = fazTuplas c1 res
+    let c2Tuplas = fazTuplas c2 res
