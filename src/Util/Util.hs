@@ -29,10 +29,7 @@ fazTuplas c res  =
         tuplasSemDuplicados = nub (sortBy sorteiaPorQtd listaTuplas) 
         tuplascPeso = map (adicionaPesos res) tuplasSemDuplicados 
 
-    in tuplascPeso   
-
-limpaCodigo :: [String] -> [String] -> [String]
-limpaCodigo lista sep = filter (\x -> not (x `elem` sep)) lista
+    in tuplascPeso
 
 dentroLimite :: Int -> Int -> Bool
 dentroLimite f1 f2 =
@@ -49,12 +46,12 @@ validaFrequencia (p1, f1) ((p2, f2) : xs)
 
 contaM :: [(String, Int)] -> [(String, Int)] -> Int
 contaM [] _ = 0
-contaM (x:xs) c2 = validaFrequencia x c2 + contaM xs c2
+contaM (x:xs) c = validaFrequencia x c + contaM xs c
 
-calculaF1 :: [(String, Int)] -> Int
-calculaF1 c1 = sum (map snd c1)
+calculaF :: [(String, Int)] -> Int
+calculaF c = sum (map snd c)
 
 calculaSimilaridade :: Int -> Int -> Float
-calculaSimilaridade m f1
-    | f1 == 0 = 0.0
-    | otherwise = fromIntegral m / fromIntegral f1
+calculaSimilaridade m f
+    | f == 0 = 0.0
+    | otherwise = fromIntegral m / fromIntegral f

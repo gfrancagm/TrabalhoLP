@@ -1,18 +1,8 @@
+fibonacci :: Int -> Int
+fibonacci 0 = 0                          
+fibonacci 1 = 1                          
+fibonacci n = fibonacci (n-1) + fibonacci (n-2) 
+
 main :: IO ()
 main = do
-    putStrLn "Qual e o seu nome?"
-    nome <- getLine -- Le a entrada do teclado
-    
-    putStrLn "Em que ano voce nasceu?"
-    anoStr <- getLine
-    
-    let anoNascimento = read anoStr :: Int
-        anoAtual = 2026
-        idade = anoAtual - anoNascimento
-    
-    putStrLn ("Ola, " ++ nome ++ "!")
-    
-    -- Estrutura condicional para verificar a maioridade
-    if idade >= 18
-        then putStrLn "Voce ja e maior de idade."
-        else putStrLn "Voce e menor de idade."  
+    let resultado = fibonacci 10

@@ -19,3 +19,14 @@ main = do
 
     let c1Tuplas = fazTuplas c1 res
     let c2Tuplas = fazTuplas c2 res
+
+    let m = contaM c1Tuplas c2Tuplas
+
+    let somaF1 = calculaF c1Tuplas
+    let somaF2 = calculaF c2Tuplas
+
+    let sim1 = calculaSimilaridade m somaF1
+    let sim2 = calculaSimilaridade m somaF2
+
+    print sim1
+    print sim2
