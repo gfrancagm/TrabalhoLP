@@ -1,0 +1,9 @@
+Tarefas realizadas por cada integrante do grupo:
+Gabriel França:
+Contribuiu a com a Main, pegou os separadores
+Fez as funções:
+retiraSeps, contaPalavra, sorteiaPorQtd, adicionaPesos, fazTuplas
+João Vitor Gusmão de Souza:
+Contribuiu com a Main, pegou as palavras reservadas
+Fez as funções:
+dentroLimite, validaFrequencia, contaM, calculaF, calculaSimilaridade
